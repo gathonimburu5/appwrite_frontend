@@ -15,6 +15,18 @@
     <link href="{{ url_for('static', filename='assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="{{ url_for('static', filename='dist/css/style.min.css') }}" rel="stylesheet">
+
+    <style>
+        .alert {
+            animation: fadeOut 5s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; display: none; }
+        }
+    </style>
 </head>
 
 <body>
@@ -136,6 +148,23 @@
             </div>
         </aside>
         <div class="page-wrapper">
+            <div class="position-fixed top-0 end-0 p-3" style="z-index: 1100; width: 350px;">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} shadow fade show alert-fadeout" role="alert">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <strong class="text-{{ category }}"> {{ category|capitalize }} </strong><br> {{ message }}
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+
             {% block content %} {% endblock %}
             <footer class="footer text-center"> Copyright © <script>document.write(new Date().getFullYear())</script>. All Rights Reserved. Designed and Developed. </footer>
         </div>
@@ -159,12 +188,11 @@
     <!--Custom JavaScript -->
     <script src="{{ url_for('static', filename='dist/js/custom.js') }}"></script>
     <!--This page JavaScript -->
-    <!--chartis chart-->
-    <script src="{{ url_for('static', filename='assets/libs/chartist/dist/chartist.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}"></script>
     <!--c3 charts -->
     <script src="{{ url_for('static', filename='assets/extra-libs/c3/d3.min.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/extra-libs/c3/c3.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js') }}"></script>
     <script src="{{ url_for('static', filename='dist/js/pages/dashboards/dashboard3.js') }}"></script>
 </body>
 

@@ -14,7 +14,7 @@ class ToDoService():
 
     def create_todo(self, form_data):
         url = f"{self.base_address}/todos"
-        response = requests.post(url=url, data=form_data)
+        response = requests.post(url=url, json=form_data)
         response.raise_for_status()
         return response.json()
 

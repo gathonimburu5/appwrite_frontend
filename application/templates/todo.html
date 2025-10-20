@@ -25,20 +25,27 @@
             <div class="card">
                 <div class="card-title">
                     <div class="row">
-                        <div class="col-5 align-self-center"> <h4 class="page-title"> Todo List </h4> </div>
-                        <div class="col-7 align-self-center">
-                            <div class="d-flex align-items-center justify-content-end">
-                                <button type="button" class="btn btn-outline-primary btn-sm btn-rounded waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".createTaskModal"> <i class="fa fa-plus-circle"></i> New Todo</button>
-                            </div>
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-outline-primary btn-sm btn-rounded waves-effect waves-light" onclick="openCreateTodo();">
+                                <i class="fa fa-plus-circle"></i> New Todo
+                            </button>
                         </div>
                     </div>
+
+                    <div class="row d-none">
+                        <div class="col-5 align-self-center"> <h4 class="page-title"> Todo List </h4> </div>
+                        <div class="col-7 align-self-center">
+                            <div class="d-flex align-items-center justify-content-end">  </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover table-sm">
                             <thead>
                                 <tr>
-                                    <th>Ref</th>
+                                    <!-- <th>Ref</th> -->
                                     <th>Title</th>
                                     <th>Description</th>
                                     <!-- <th>Created On</th> -->
@@ -49,11 +56,14 @@
                                 {% if data %}
                                     {% for task in data %}
                                         <tr>
-                                            <td>{{ task['$id'] }}</td>
+                                            <!-- <td>{{ task['$id'] }}</td> -->
                                             <td>{{ task['title'] }}</td>
                                             <td>{{ task['description'] }}</td>
                                             <!-- <td>{{ task.created_on }}</td> -->
-                                            <td></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                                <button class="btn btn-sm btn-primary" onclick="updateTodoRecord()"><i class="fa fa-edit"></i></button>
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                 {% else %}
@@ -71,7 +81,7 @@
 </div>
 
 <!-- Create Modal -->
-<div class="modal fade createTaskModal" tabindex="-1" role="dialog" aria-labelledby="taskDetails" aria-hidden="true">
+<div class="modal fade" id="createTodoModal" tabindex="-1" role="dialog" aria-labelledby="taskDetails" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -109,6 +119,12 @@
     </div>
 </div>
 <!-- end modal -->
+
+<script>
+const openCreateTodo = () => {
+    $("#createTodoModal").modal("show");
+}
+</script>
 
 {% endblock %}
 

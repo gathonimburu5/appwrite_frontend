@@ -14,5 +14,6 @@ def list_todo():
             "title": request.form.get("title"),
             "description": request.form.get("description")
         }
-        todo_service.create_todo(form_data)
+        response = todo_service.create_todo(form_data)
+        flash(response.get("message", "Todo created successfully"), "success")
         return redirect(url_for("todo_router.list_todo"))
