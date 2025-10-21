@@ -20,3 +20,19 @@ class ToDoService():
 
     def get_todo_id(self, todo_id: str):
         url = f"{self.base_address}/todos/{todo_id}"
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+        return data.get("documents", [])
+
+    def update_todo(self, todo_id: str, form_data):
+        url = f"{self.base_address}/todos/{todo_id}"
+        response = requests.put(url, json=form_data)
+        response.raise_for_status()
+        return response.json()
+
+    def delete_todo(self, todo_id: str):
+        url = f"{self.base_address}/todos/{todo_id}"
+        response = requests.delete(url)
+        response.raise_for_status()
+        return response.json()

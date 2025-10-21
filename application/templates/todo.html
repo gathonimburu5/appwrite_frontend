@@ -45,7 +45,7 @@
                         <table class="table table-striped table-hover table-sm">
                             <thead>
                                 <tr>
-                                    <!-- <th>Ref</th> -->
+                                    <th>Ref</th>
                                     <th>Title</th>
                                     <th>Description</th>
                                     <!-- <th>Created On</th> -->
@@ -56,13 +56,18 @@
                                 {% if data %}
                                     {% for task in data %}
                                         <tr>
-                                            <!-- <td>{{ task['$id'] }}</td> -->
+                                            <td>{{ task['$id'] }}</td>
                                             <td>{{ task['title'] }}</td>
                                             <td>{{ task['description'] }}</td>
-                                            <!-- <td>{{ task.created_on }}</td> -->
                                             <td>
-                                                <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
-                                                <button class="btn btn-sm btn-primary" onclick="updateTodoRecord()"><i class="fa fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger" onclick='deleteTodoRecord("{{ task.id }}")'><i class="fa fa-trash"></i></button>
+                                                <button class="btn btn-sm btn-primary" data-id="{{ task['$id'] }}" onclick="updateTodoRecord('{{task.title}}', '{{task.description}}', this);"><i class="fa fa-edit"></i></button>
+
+                                                <!-- <a href="{{ url_for('todo_router.update_todo', todo_id=task['$id']) }}" type="button" class="btn btn-info btn-sm btn-rounded waves-effect waves-light"
+                                                    data-bs-toggle="modal" data-bs-target="#editModal-{{task['$id']}}">
+                                                    <i class="fa fa-edit"></i>
+                                                </a> -->
+
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -81,11 +86,11 @@
 </div>
 
 <!-- Create Modal -->
-<div class="modal fade" id="createTodoModal" tabindex="-1" role="dialog" aria-labelledby="taskDetails" aria-hidden="true">
+<div class="modal fade" id="createTodoModal" tabindex="-1" role="dialog" aria-labelledby="create-todo" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="taskDetails"> Create Todo Record </h5>
+                <h5 class="modal-title" id="create-todo"> Create Todo Record </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -118,12 +123,72 @@
         </div>
     </div>
 </div>
-<!-- end modal -->
+
+<!-- update modal -->
+<div class="modal fade" id="editTodoModal" tabindex="-1" role="dialog" aria-labelledby="update-todo" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="update-todo"> Update Todo Record </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form id="editForm" method="post">
+                <div class="modal-body">
+                    <div class="row mb-1">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label"> Todo ID: <span class="text-danger">*</span> </label>
+                                <input type="text" name="Id" id="todo_id" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label"> Title: <span class="text-danger">*</span> </label>
+                                <input type="text" name="title" id="todo_title" oninput="this.value = this.value.toUpperCase()" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label"> Description: <span class="text-danger">*</span> </label>
+                                <textarea type="text" rows="3" name="description" id="todo_description" oninput="this.value = this.value.toUpperCase()" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-sm"> Submit </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <script>
-const openCreateTodo = () => {
-    $("#createTodoModal").modal("show");
-}
+    const openCreateTodo = () => {
+        $("#createTodoModal").modal("show");
+    }
+    const updateTodoRecord = (title, description, btn) => {
+        const todoId = btn.dataset.id;
+        document.getElementById("todo_id").value = todoId;
+        document.getElementById("todo_title").value = title;
+        document.getElementById("todo_description").value = description;
+
+        let form = document.getElementById("editForm");
+        const baseUrl = "{{ url_for('todo_router.update_todo', todo_id='__PLACEHOLDER__') }}";
+        const actionUrl = baseUrl.replace('__PLACEHOLDER__', todoId);
+        form.action =  actionUrl;
+
+        $("#editTodoModal").modal("show");
+    }
 </script>
 
 {% endblock %}

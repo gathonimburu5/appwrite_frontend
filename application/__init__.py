@@ -15,4 +15,7 @@ def application_run():
     from application.controllers.todo_controller import todo_router
     app.register_blueprint(todo_router, url_prefix="/todo")
 
+    from application.controllers.auth_controller import auth_router
+    app.register_blueprint(auth_router, url_prefix="/auth")
+
     return app

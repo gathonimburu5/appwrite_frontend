@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config():
-    BASE_ADDRESS_URL= os.getenv('BASE_ADDRESS')
+    BASE_ADDRESS_URL= os.getenv('DEVELOPMENT_BASE_ADDRESS')
     SECRET_KEY = secrets.token_hex(16)
 
 class DevelopmentConfig(Config):
