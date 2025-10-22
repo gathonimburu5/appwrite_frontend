@@ -10,3 +10,9 @@ class AuthService():
         response = requests.post(url=url, data=form_data)
         response.raise_for_status()
         return response.json()
+
+    def change_password(self, form_data: dict):
+        url = f"{self.base_address}/users/change-passord"
+        response = requests.put(url, data=form_data)
+        response.raise_for_status()
+        return response.json()
