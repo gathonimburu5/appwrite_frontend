@@ -57,6 +57,19 @@ class ProductService():
         res.raise_for_status()
         return res.json()
 
+    def deactivateCategory(self, catId:str, fData:dict):
+        url = f"{self.base_address}/category-deactivate/{catId}"
+        res = requests.put(url=url, data=fData)
+        res.raise_for_status()
+        return res.json()
+
+    def getAllActiveCategory(self):
+        url = f"{self.base_address}/active-categories"
+        res = requests.get(url=url)
+        res.raise_for_status()
+        data = res.json()
+        return data.get("documents", [])
+
     def getAllMeasureUnit(self):
         url = f"{self.base_address}/measure-units"
         res = requests.get(url=url)
@@ -82,3 +95,16 @@ class ProductService():
         res = requests.put(url=unitId, data=formData)
         res.raise_for_status()
         return res.json()
+
+    def deactivateMeasureUnit(self, unitId:str, fData:dict):
+        url = f"{self.base_address}/measure-unit-deactivate/{unitId}"
+        res = requests.put(url=url, data=fData)
+        res.raise_for_status()
+        return res.json()
+
+    def getAllActiveMeasureUnit(self):
+        url = f"{self.base_address}/active-measure-units"
+        res = requests.get(url=url)
+        res.raise_for_status()
+        data = res.json()
+        return data.get("documents", [])

@@ -18,4 +18,13 @@ def application_run():
     from application.controllers.auth_controller import auth_router
     app.register_blueprint(auth_router, url_prefix="/auth")
 
+    from application.controllers.product_controller import product_router
+    app.register_blueprint(product_router, url_prefix="/products")
+
+    from application.controllers.employee_controller import employee_router
+    app.register_blueprint(employee_router, url_prefix="/employees")
+
+    from application.controllers.supplier_controller import supplier_router
+    app.register_blueprint(supplier_router, url_prefix="/suppliers")
+
     return app
