@@ -27,4 +27,9 @@ def application_run():
     from application.controllers.supplier_controller import supplier_router
     app.register_blueprint(supplier_router, url_prefix="/suppliers")
 
+
+    @app.context_processor
+    def inject_base_url():
+        return dict(base_url=app.config.get("BASE_ADDRESS_URL", ""))
+
     return app

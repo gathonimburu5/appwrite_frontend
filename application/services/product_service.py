@@ -6,53 +6,53 @@ class ProductService():
         self.base_address = Config.BASE_ADDRESS_URL
 
     def getAllProducts(self):
-        url = f"{self.base_address}/products"
+        url = f"{self.base_address}/api/products"
         res = requests.get(url)
         res.raise_for_status()
         data = res.json()
         return data.get("documents", [])
 
     def createProduct(self, formData:dict):
-        url = f"{self.base_address}/products"
+        url = f"{self.base_address}/api/products"
         res = requests.post(url=url, data=formData)
         res.raise_for_status()
         return res.json()
 
     def getProductPerId(self, productId:str):
-        url = f"{self.base_address}/products/{productId}"
+        url = f"{self.base_address}/api/products/{productId}"
         res = requests.get(url=url)
         res.raise_for_status()
         data = res.json()
         return data.get("documents", [])
 
     def editProduct(self, productId:str, formData:dict):
-        url = f"{self.base_address}/products/{productId}"
+        url = f"{self.base_address}/api/products/{productId}"
         res = requests.put(url=url, data=formData)
         res.raise_for_status()
         return res.json()
 
     def getAllCategory(self):
-        url = f"{self.base_address}/categories"
+        url = f"{self.base_address}/api/categories"
         res = requests.get(url=url)
         res.raise_for_status()
         data = res.json()
         return data.get("documents", [])
 
     def createCategory(self, formData:dict):
-        url = f"{self.base_address}/categories"
+        url = f"{self.base_address}/api/categories"
         res = requests.post(url=url, data=formData)
         res.raise_for_status()
         return res.json()
 
     def getCategoryById(self, catId:str):
-        url = f"{self.base_address}/categories/{catId}"
+        url = f"{self.base_address}/api/categories/{catId}"
         res = requests.get(url=url)
         res.raise_for_status()
         data = res.json()
         return data.get("documents", [])
 
     def updateCategory(self, catId:str, formData:dict):
-        url = f"{self.base_address}/categories/{catId}"
+        url = f"{self.base_address}/api/categories/{catId}"
         res = requests.put(url=url, data=formData)
         res.raise_for_status()
         return res.json()
@@ -64,34 +64,34 @@ class ProductService():
         return res.json()
 
     def getAllActiveCategory(self):
-        url = f"{self.base_address}/active-categories"
+        url = f"{self.base_address}/api/active-categories"
         res = requests.get(url=url)
         res.raise_for_status()
         data = res.json()
         return data.get("documents", [])
 
     def getAllMeasureUnit(self):
-        url = f"{self.base_address}/measure-units"
+        url = f"{self.base_address}/api/measure-units"
         res = requests.get(url=url)
         res.raise_for_status()
         data = res.json()
         return data.get("documents", [])
 
     def createMeasureUnit(self, formData:dict):
-        url = f"{self.base_address}/measure-units"
+        url = f"{self.base_address}/api/measure-units"
         res = requests.post(url=url, data=formData)
         res.raise_for_status()
         return res.json()
 
     def getMeasureUnitPerId(self, unitId:str):
-        url = f"{self.base_address}/measure-units/{unitId}"
+        url = f"{self.base_address}/api/measure-units/{unitId}"
         res = requests.get(url=url)
         res.raise_for_status()
         data = res.json()
         return data.get("documents", [])
 
     def updateMeasureUnit(self, unitId:str, formData:dict):
-        url = f"{self.base_address}/measure-units/{unitId}"
+        url = f"{self.base_address}/api/measure-units/{unitId}"
         res = requests.put(url=unitId, data=formData)
         res.raise_for_status()
         return res.json()
@@ -103,7 +103,7 @@ class ProductService():
         return res.json()
 
     def getAllActiveMeasureUnit(self):
-        url = f"{self.base_address}/active-measure-units"
+        url = f"{self.base_address}/api/active-measure-units"
         res = requests.get(url=url)
         res.raise_for_status()
         data = res.json()

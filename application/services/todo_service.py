@@ -6,33 +6,33 @@ class ToDoService():
         self.base_address = Config.BASE_ADDRESS_URL
 
     def get_todo(self):
-        url = f"{self.base_address}/todos"
+        url = f"{self.base_address}/api/todos"
         response = requests.get(url)
         response.raise_for_status()
         data = response.json()
         return data.get("documents", [])
 
     def create_todo(self, form_data):
-        url = f"{self.base_address}/todos"
+        url = f"{self.base_address}/api/todos"
         response = requests.post(url=url, json=form_data)
         response.raise_for_status()
         return response.json()
 
     def get_todo_id(self, todo_id: str):
-        url = f"{self.base_address}/todos/{todo_id}"
+        url = f"{self.base_address}/api/todos/{todo_id}"
         response = requests.get(url)
         response.raise_for_status()
         data = response.json()
         return data.get("documents", [])
 
     def update_todo(self, todo_id: str, form_data):
-        url = f"{self.base_address}/todos/{todo_id}"
+        url = f"{self.base_address}/api/todos/{todo_id}"
         response = requests.put(url, json=form_data)
         response.raise_for_status()
         return response.json()
 
     def delete_todo(self, todo_id: str):
-        url = f"{self.base_address}/todos/{todo_id}"
+        url = f"{self.base_address}/api/todos/{todo_id}"
         response = requests.delete(url)
         response.raise_for_status()
         return response.json()

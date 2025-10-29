@@ -23,7 +23,8 @@ def login_page():
             "full_name": response.get("full_name"),
             "email_address": response.get("email_address"),
             "phone_number": response.get("phone_number"),
-            "username": response.get("username")
+            "username": response.get("username"),
+            "profile_picture": response.get("profile_picture")
         }
 
         flash(response.get("message", "successfully logged in"), "success")
