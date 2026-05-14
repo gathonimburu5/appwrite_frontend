@@ -9,7 +9,8 @@ module.exports = {
             autorestart: true,
             env: {
                 FLASK_ENV: "development",
-                FLASK_DEBUG: "1"
+                FLASK_DEBUG: "1",
+                APP_VERSION: "1.0.0"
             }
         }
     ]
